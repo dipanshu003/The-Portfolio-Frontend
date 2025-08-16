@@ -159,7 +159,7 @@
     <div class="relative w-full max-w-6xl">
       <!-- Projects Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @for (project of visibleProjects; track $index) { @defer{
+        @for (project of visibleProjects; track $index) {
         <!-- Actual Project Card -->
         <div
           class="overflow-hidden rounded-2xl shadow-lg bg-white dark:bg-gray-800 transition-transform duration-500 hover:scale-105"
@@ -180,12 +180,7 @@
             </p>
           </div>
         </div>
-        } @placeholder {
-        <!-- Skeleton Loader -->
-        <div
-          class="overflow-hidden rounded-2xl shadow-lg bg-gray-200 dark:bg-gray-700 animate-pulse h-80"
-        ></div>
-        } }
+        }
       </div>
 
       <!-- Previous Button -->
@@ -319,43 +314,59 @@
   </section>
 
   <!-- Footer Section -->
-<footer class="bg-gray-900 text-gray-300 dark:bg-gray-800 dark:text-gray-400 py-12">
-  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-    
-    <!-- Logo / Name -->
-    <div class="text-center md:text-left">
-      <h3 class="text-2xl font-bold text-indigo-400 mb-2">Dipanshu Dhole</h3>
-      <p class="text-sm">Full Stack Developer | Angular & Java Enthusiast</p>
+  <footer
+    class="bg-gray-900 text-gray-300 dark:bg-gray-800 dark:text-gray-400 py-12"
+  >
+    <div
+      class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8"
+    >
+      <!-- Logo / Name -->
+      <div class="text-center md:text-left">
+        <h3 class="text-2xl font-bold text-indigo-400 mb-2">Dipanshu Dhole</h3>
+        <p class="text-sm">Full Stack Developer | Angular & Java Enthusiast</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="flex flex-col md:flex-row gap-6 text-center md:text-left">
+        <a href="#home" class="hover:text-indigo-400 transition">Home</a>
+        <a href="#about" class="hover:text-indigo-400 transition">About</a>
+        <a href="#projects" class="hover:text-indigo-400 transition"
+          >Projects</a
+        >
+        <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
+      </div>
+
+      <!-- Social Icons -->
+      <div class="flex gap-4 text-2xl">
+        <a
+          href="https://www.linkedin.com/in/dipanshudhole"
+          target="_blank"
+          class="hover:text-indigo-400 transition"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a
+          href="https://github.com/dipanshudhole"
+          target="_blank"
+          class="hover:text-indigo-400 transition"
+        >
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a
+          href="https://twitter.com/dipanshudhole"
+          target="_blank"
+          class="hover:text-indigo-400 transition"
+        >
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+      </div>
     </div>
 
-    <!-- Quick Links -->
-    <div class="flex flex-col md:flex-row gap-6 text-center md:text-left">
-      <a href="#home" class="hover:text-indigo-400 transition">Home</a>
-      <a href="#about" class="hover:text-indigo-400 transition">About</a>
-      <a href="#projects" class="hover:text-indigo-400 transition">Projects</a>
-      <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
+    <!-- Divider -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+      Dipanshu Dhole. All rights reserved.
     </div>
-
-    <!-- Social Icons -->
-    <div class="flex gap-4 text-2xl">
-      <a href="https://www.linkedin.com/in/dipanshudhole" target="_blank" class="hover:text-indigo-400 transition">
-        <i class="fa-brands fa-linkedin"></i>
-      </a>
-      <a href="https://github.com/dipanshudhole" target="_blank" class="hover:text-indigo-400 transition">
-        <i class="fa-brands fa-github"></i>
-      </a>
-      <a href="https://twitter.com/dipanshudhole" target="_blank" class="hover:text-indigo-400 transition">
-        <i class="fa-brands fa-twitter"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- Divider -->
-  <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
-     Dipanshu Dhole. All rights reserved.
-  </div>
-</footer>
-
+  </footer>
 </main>
 
 <!-- Tailwind custom animation keyframes -->
