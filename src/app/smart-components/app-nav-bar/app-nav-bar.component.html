@@ -1,0 +1,111 @@
+<!-- portfolio-navbar.component.html -->
+<header class="bg-blue-600 shadow-lg fixed w-full top-0 z-50">
+  <nav
+    class="container mx-auto px-4 py-3 flex justify-between items-center relative"
+  >
+    <!-- Logo -->
+    <span
+      (click)="scrollToSection('home')"
+      class="cursor-pointer text-white text-2xl font-bold tracking-wide hover:opacity-90 transition-opacity"
+    >
+      MyPortfolio
+    </span>
+
+    <!-- Desktop Menu (centered) -->
+    <ul
+      class="hidden md:flex space-x-8 text-white font-medium absolute left-1/2 transform -translate-x-1/2"
+    >
+      <li>
+        <span
+          (click)="scrollToSection('home')"
+          class="cursor-pointer hover:text-blue-200"
+          >Home</span
+        >
+      </li>
+      <li>
+        <span
+          (click)="scrollToSection('about')"
+          class="cursor-pointer hover:text-blue-200"
+          >About</span
+        >
+      </li>
+      <li>
+        <span
+          (click)="scrollToSection('projects')"
+          class="cursor-pointer hover:text-blue-200"
+          >Projects</span
+        >
+      </li>
+      <li>
+        <span
+          (click)="scrollToSection('contact')"
+          class="cursor-pointer hover:text-blue-200"
+          >Contact</span
+        >
+      </li>
+    </ul>
+
+    <!-- Right Corner: Dark/Light Mode Toggle -->
+    <div class="flex items-center space-x-4">
+      <!-- Dark/Light Mode Button -->
+      <button
+        (click)="toggleTheme()"
+        class="text-white text-xl focus:outline-none cursor-pointer hover:text-blue-200"
+      >
+        @if (isDarkMode) {
+        <i class="fas fa-sun"></i>
+        } @else {
+        <i class="fas fa-moon"></i>
+        }
+      </button>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="md:hidden text-white cursor-pointer hover:text-blue-200"
+        (click)="toggleMenu()"
+      >
+        @if (!isMenuOpen) {
+        <i class="fas fa-bars text-2xl"></i>
+        } @else {
+        <i class="fas fa-times text-2xl"></i>
+        }
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  @if (isMenuOpen) {
+  <div class="md:hidden bg-blue-700 text-white animate-slide-down">
+    <ul class="flex flex-col items-center py-4 space-y-4">
+      <li>
+        <span
+          (click)="scrollToSection('home')"
+          class="cursor-pointer hover:text-blue-200"
+          >Home</span
+        >
+      </li>
+      <li>
+        <span
+          (click)="scrollToSection('about')"
+          class="cursor-pointer hover:text-blue-200"
+          >About</span
+        >
+      </li>
+      <li>
+        <span
+          (click)="scrollToSection('projects')"
+          class="cursor-pointer hover:text-blue-200"
+          >Projects</span
+        >
+      </li>
+      <li>
+        <span
+          (click)="scrollToSection('contact')"
+          class="cursor-pointer hover:text-blue-200"
+          >Contact</span
+        >
+      </li>
+    </ul>
+  </div>
+  }
+</header>

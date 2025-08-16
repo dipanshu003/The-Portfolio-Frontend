@@ -1,0 +1,374 @@
+<app-app-nav-bar></app-app-nav-bar>
+
+<!-- Main Content -->
+<main>
+  <!-- Hero Section -->
+  <section
+    id="home"
+    class="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white overflow-hidden"
+  >
+    <!-- Floating background icons -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <i
+        class="fa-solid fa-code text-6xl text-white/10 absolute animate-[float_10s_linear_infinite] left-[10%] top-[20%]"
+      ></i>
+      <i
+        class="fa-brands fa-css3 text-7xl text-white/10 absolute animate-[float_12s_linear_infinite] left-[70%] top-[20%]"
+      ></i>
+      <i
+        class="fa-brands fa-angular text-8xl text-indigo-500/10 absolute animate-[float_14s_linear_infinite] left-[40%] top-[70%]"
+      ></i>
+      <i
+        class="fa-brands fa-js text-7xl text-indigo-400/10 absolute animate-[float_16s_linear_infinite] left-[80%] top-[60%]"
+      ></i>
+      <i
+        class="fa-brands fa-java text-7xl text-indigo-400/10 absolute animate-[float_18s_linear_infinite] left-[60%] top-[80%]"
+      ></i>
+      <i
+        class="fa-brands fa-html5 text-7xl text-indigo-500/10 absolute animate-[float_20s_linear_infinite] left-[10%] top-[70%]"
+      ></i>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex flex-col text-center justify-center items-center px-4">
+      <h1 class="text-5xl sm:text-6xl font-extrabold mb-6">
+        Hi, I’m <span class="text-indigo-400">Dipanshu Dhole</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-300 max-w-xl mx-auto mb-8">
+        A passionate
+        <span class="text-indigo-400">Java Full Stack Developer</span> who loves
+        crafting clean and scalable solutions.
+      </p>
+      <button
+        (click)="scrollToSection('about')"
+        class="w-[200px] inline-block px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-lg font-medium transition-transform transform hover:scale-105 cursor-pointer"
+      >
+        Explore More
+      </button>
+    </div>
+  </section>
+  <!-- About Section -->
+  <section
+    id="about"
+    class="relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex flex-col items-center justify-center px-6 sm:px-12 py-16"
+  >
+    <div
+      class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+    >
+      <!-- Profile Image -->
+      <div class="flex justify-center">
+        <img
+          src="assets/dip_photo.png"
+          alt="Dipanshu Dhole"
+          class="w-80 h-80 sm:w-[500px] sm:h-[500px] rounded-2xl shadow-xl object-contains border-4 border-indigo-500 hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+
+      <!-- About Text -->
+      <div class="text-center md:text-left">
+        <h2
+          class="text-4xl sm:text-5xl font-extrabold text-gray-800 dark:text-white mb-6"
+        >
+          About <span class="text-indigo-500">Me</span>
+        </h2>
+
+        <p
+          class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6"
+        >
+          Hi, I’m
+          <span class="font-semibold text-indigo-500">Dipanshu Dhole</span>, a
+          passionate
+          <span class="text-indigo-400">Full Stack Developer</span> with a
+          strong interest in building scalable and clean web applications. I
+          enjoy transforming ideas into user-friendly digital experiences.
+          Experienced in Angular 16+, RxJS, and Tailwind CSS. Proficient in
+          integrating Google APIs, including Maps and Business Reviews. Skilled
+          in state management with NgRx and collaborative development using Git
+          and Azure DevOps, focusing on delivering clean, scalable, and
+          user-friendly web applications.
+        </p>
+
+        <p
+          class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8"
+        >
+          With expertise in
+          <span class="font-medium">Angular, Java, and modern web tools</span>,
+          I focus on writing elegant code and delivering high-quality solutions
+          that make an impact.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-wrap gap-4">
+          <button
+            (click)="scrollToSection('projects')"
+            class="px-6 py-3 rounded-lg bg-indigo-600 text-white font-medium shadow-lg hover:bg-indigo-700 hover:scale-105 transition-all duration-300 cursor-pointer"
+          >
+            View My Work
+          </button>
+          <button
+            (click)="downloadResume()"
+            class="px-6 py-3 rounded-lg bg-indigo-600 text-white font-medium shadow-lg hover:bg-indigo-700 hover:scale-105 transition-all duration-300 cursor-pointer"
+          >
+            Download Resume
+          </button>
+        </div>
+
+        <!-- Skills -->
+        <p class="mt-6 text-gray-700 dark:text-gray-300 font-medium">
+          My expertise includes:
+        </p>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span
+            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
+            >Angular</span
+          >
+          <span
+            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
+            >RxJS</span
+          >
+          <span
+            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
+            >Tailwind CSS</span
+          >
+          <span
+            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
+            >Java</span
+          >
+          <span
+            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
+            >NgRx</span
+          >
+          <span
+            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
+            >Google APIs</span
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section
+    id="projects"
+    class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex flex-col items-center justify-center px-6 py-16"
+  >
+    <h2 class="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-12">
+      My Projects
+    </h2>
+
+    <div class="relative w-full max-w-6xl">
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        @for (project of visibleProjects; track $index) { @defer{
+        <!-- Actual Project Card -->
+        <div
+          class="overflow-hidden rounded-2xl shadow-lg bg-white dark:bg-gray-800 transition-transform duration-500 hover:scale-105"
+        >
+          <img
+            [src]="project.image"
+            [alt]="project.title"
+            class="w-full h-64 object-cover"
+          />
+          <div class="p-4">
+            <h3
+              class="text-xl font-semibold text-gray-800 dark:text-white mb-2"
+            >
+              {{ project.title }}
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">
+              {{ project.description }}
+            </p>
+          </div>
+        </div>
+        } @placeholder {
+        <!-- Skeleton Loader -->
+        <div
+          class="overflow-hidden rounded-2xl shadow-lg bg-gray-200 dark:bg-gray-700 animate-pulse h-80"
+        ></div>
+        } }
+      </div>
+
+      <!-- Previous Button -->
+      @if (currentIndex !== 0) {
+      <button
+        (click)="prevProject()"
+        class="h-16 w-16 absolute top-1/2 -left-8 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full hover:bg-indigo-700 transition cursor-pointer"
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      }
+
+      <!-- Next Button -->
+      @if (currentIndex + projectsPerPage < projects.length) {
+      <button
+        (click)="nextProject()"
+        class="h-16 w-16 absolute top-1/2 -right-8 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full hover:bg-indigo-700 transition cursor-pointer"
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      }
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section
+    id="contact"
+    class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex flex-col items-center justify-center px-6 py-16"
+  >
+    <!-- Heading -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">
+        Get in Touch
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-lg max-w-xl mx-auto">
+        I’m always open to discussing new projects, creative ideas, or
+        opportunities. Reach out via email, phone, or social media!
+      </p>
+    </div>
+
+    <div class="flex flex-col items-center md:flex-row gap-10 max-w-5xl w-full">
+      <!-- Contact Info Cards -->
+      <div class="flex flex-col gap-6 md:w-1/3">
+        <div
+          class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300 flex items-center gap-4"
+        >
+          <i class="fa-solid fa-envelope text-indigo-600 text-2xl"></i>
+          <div>
+            <h4 class="font-semibold text-gray-800 dark:text-white">Email</h4>
+            <p class="text-gray-600 dark:text-gray-300">
+              dipanshudholexample.com
+            </p>
+          </div>
+        </div>
+        <div
+          class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300 flex items-center gap-4"
+        >
+          <i class="fa-solid fa-phone text-indigo-600 text-2xl"></i>
+          <div>
+            <h4 class="font-semibold text-gray-800 dark:text-white">Phone</h4>
+            <p class="text-gray-600 dark:text-gray-300">+91 98765 43210</p>
+          </div>
+        </div>
+        <div
+          class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300 flex items-center gap-4"
+        >
+          <i class="fa-solid fa-location-dot text-indigo-600 text-2xl"></i>
+          <div>
+            <h4 class="font-semibold text-gray-800 dark:text-white">
+              Location
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300">
+              Pune, Maharashtra, India
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="contactFg"
+        class="md:w-2/3 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg flex flex-col gap-6"
+      >
+        <div class="flex flex-col md:flex-row gap-4">
+          <input
+            type="text"
+            placeholder="Your Name"
+            formControlName="name"
+            class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+          />
+          <input
+            type="email"
+            placeholder="Your Email"
+            formControlName="email"
+            class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+          />
+        </div>
+
+        <textarea
+          rows="5"
+          placeholder="Your Message"
+          formControlName="message"
+          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 resize-none"
+        ></textarea>
+
+        <!-- Validation Messages -->
+        <div class="text-red-500 text-sm">
+          @if (contactFgControls.name.touched &&
+          contactFgControls.name.hasError('required')) {
+          <p>Name is required</p>
+          } @if( contactFgControls.email.touched &&
+          contactFgControls.email.hasError('required')) {
+          <p>Email is required</p>
+          } @if( contactFgControls.email.touched &&
+          contactFgControls.email.hasError('email')) {
+          <p>Enter a valid email</p>
+          } @if( contactFgControls.message.touched &&
+          contactFgControls.message.hasError('required')) {
+          <p>Message is required</p>
+          }
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="contactFg.invalid"
+          class="w-full md:w-auto px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-300 self-center disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+<footer class="bg-gray-900 text-gray-300 dark:bg-gray-800 dark:text-gray-400 py-12">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+    
+    <!-- Logo / Name -->
+    <div class="text-center md:text-left">
+      <h3 class="text-2xl font-bold text-indigo-400 mb-2">Dipanshu Dhole</h3>
+      <p class="text-sm">Full Stack Developer | Angular & Java Enthusiast</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="flex flex-col md:flex-row gap-6 text-center md:text-left">
+      <a href="#home" class="hover:text-indigo-400 transition">Home</a>
+      <a href="#about" class="hover:text-indigo-400 transition">About</a>
+      <a href="#projects" class="hover:text-indigo-400 transition">Projects</a>
+      <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="flex gap-4 text-2xl">
+      <a href="https://www.linkedin.com/in/dipanshudhole" target="_blank" class="hover:text-indigo-400 transition">
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/dipanshudhole" target="_blank" class="hover:text-indigo-400 transition">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="https://twitter.com/dipanshudhole" target="_blank" class="hover:text-indigo-400 transition">
+        <i class="fa-brands fa-twitter"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+     Dipanshu Dhole. All rights reserved.
+  </div>
+</footer>
+
+</main>
+
+<!-- Tailwind custom animation keyframes -->
+<style>
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-30px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+</style>
