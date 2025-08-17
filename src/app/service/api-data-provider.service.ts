@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
-import { InfoDataCommand } from '../models/info-data.model';
+import { InfoDataCommand, SaveContactMeDetailsQuery } from '../models/info-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +13,22 @@ export class ApiDataProviderService {
 
   // Define the type of data you expect, e.g., any[] or a specific interface
   getAllInfoDetails(): Observable<InfoDataCommand> {
-    return this.http.get<InfoDataCommand>(`${this.baseUrl}/info`).pipe(
+    return this.http.get<InfoDataCommand>(`${this.baseUrl}/getInfo`).pipe(
       catchError((err) => {
         console.error('HTTP error', err);
         throw err;
       })
     );
+  }
+
+  saveContactMeDetails(contactData: SaveContactMeDetailsQuery): Observable<boolean> {
+    return this.http
+      .post<boolean>(`${this.baseUrl}/saveContactDetails`, contactData)
+      .pipe(
+        catchError((err) => {
+          console.error('HTTP error', err);
+          throw err;
+        })
+      );
   }
 }

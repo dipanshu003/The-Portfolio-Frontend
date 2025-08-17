@@ -1,28 +1,38 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AppNavBarComponent } from '../../smart-components/app-nav-bar/app-nav-bar.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SharedImportsModule } from '../../helper/shared-imports';
 import { ApiDataProviderService } from '../../service/api-data-provider.service';
-import { take } from 'rxjs';
+import { map, take } from 'rxjs';
+import {
+  InfoDataCommand,
+  SaveContactMeDetailsQuery,
+} from '../../models/info-data.model';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tp-main-page',
-  imports: [
-    CommonModule,
-    AppNavBarComponent,
-    SharedImportsModule,
-  ],
+  imports: [CommonModule, AppNavBarComponent, SharedImportsModule],
   templateUrl: './tp-main-page.component.html',
   styleUrl: './tp-main-page.component.scss',
   standalone: true,
 })
-export class TpMainPageComponent implements OnInit{
+export class TpMainPageComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _apiService = inject(ApiDataProviderService);
+  private _snackBar = inject(MatSnackBar);
+
+  durationInSeconds = 5;
 
   currentIndex = 0;
   projectsPerPage = 3;
+  infoData = signal<InfoDataCommand | null>(null);
+  projectPhoto = [
+    'assets/sms_photo.jpg',
+    'assets/ems_photo.jpg',
+    'assets/quick_note.jpg',
+  ];
 
   contactFg = this._fb.nonNullable.group({
     name: this._fb.control('', [Validators.required]),
@@ -30,41 +40,12 @@ export class TpMainPageComponent implements OnInit{
     message: this._fb.control(''),
   });
 
-  projects = [
-    {
-      title: 'Project One',
-      description: 'Description for Project One.',
-      image: 'https://picsum.photos/id/1015/400/300',
-    },
-    {
-      title: 'Project Two',
-      description: 'Description for Project Two.',
-      image: 'https://picsum.photos/id/1016/400/300',
-    },
-    {
-      title: 'Project Three',
-      description: 'Description for Project Three.',
-      image: 'https://picsum.photos/id/1018/400/300',
-    },
-    {
-      title: 'Project Four',
-      description: 'Description for Project Four.',
-      image: 'https://picsum.photos/id/1020/400/300',
-    },
-    {
-      title: 'Project Five',
-      description:
-        'Description for Project Five.iwuerwueruoeuuruwouero loren3423ioisdoiufsiuoifusuodufousouidfuuosudfousodufoiusudfiusoiudfisuoifuisouifuisudofusojflsd,mfn,msdnf,mnkjewhuriyweouroiuweriosklfms.,nfdlhsdhfiew',
-      image: 'https://picsum.photos/id/1024/400/300',
-    },
-  ];
-
   get contactFgControls() {
     return this.contactFg.controls;
   }
 
   get visibleProjects() {
-    return this.projects.slice(
+    return this.infoData()?.projects.slice(
       this.currentIndex,
       this.currentIndex + this.projectsPerPage
     );
@@ -75,7 +56,10 @@ export class TpMainPageComponent implements OnInit{
   }
 
   nextProject() {
-    if (this.currentIndex + this.projectsPerPage < this.projects.length) {
+    if (
+      this.currentIndex + this.projectsPerPage <
+      (this.infoData()?.projects.length || 0)
+    ) {
       this.currentIndex++;
     } else {
       this.currentIndex = 0; // loop back
@@ -86,7 +70,8 @@ export class TpMainPageComponent implements OnInit{
     if (this.currentIndex > 0) {
       this.currentIndex--;
     } else {
-      this.currentIndex = this.projects.length - this.projectsPerPage; // loop back
+      this.currentIndex =
+        (this.infoData()?.projects.length || 0) - this.projectsPerPage; // loop back
     }
   }
 
@@ -101,23 +86,70 @@ export class TpMainPageComponent implements OnInit{
     link.click();
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 5000, // 5 seconds
+      horizontalPosition: 'right', // optional
+      verticalPosition: 'top', // optional
+    });
+  }
+
+  onSubmit() {
+    this.saveContactMeDetails();
+  }
+
   fetchAllInfoDetails() {
     this._apiService
       .getAllInfoDetails()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        map((res) => ({
+          ...res, // spread existing properties
+          showNextPreviousButton: res.projects?.length > 3, // new property
+        }))
+      )
       .subscribe({
-        next: (response) => {
-          console.log('Fetched info details:', response);
-          // Assign to a variable if needed
-          // this.userProfiles = response;
+        next: (res) => {
+          this.infoData.set(res);
+          console.log('Fetched info details:', this.infoData());
         },
         error: (err) => {
           console.error('Error fetching info details:', err);
-          // Handle error, e.g., show toast or alert
+          // Optionally show a toast or alert
         },
         complete: () => {
           console.log('Fetch operation completed.');
           // Any final logic after completion
+        },
+      });
+  }
+
+  saveContactMeDetails() {
+    const payload: SaveContactMeDetailsQuery = {
+      id: '',
+      name: this.contactFgControls.name.value ?? '',
+      email: this.contactFgControls.email.value ?? '',
+      message: this.contactFgControls.message.value ?? '',
+    };
+
+    this._apiService
+      .saveContactMeDetails(payload)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          if (res === true) {
+            this.openSnackBar('Information send successfully!', 'Close');
+          } else {
+            console.warn('Failed to save contact details');
+            this.openSnackBar('Failed to send information!', 'Close');
+          }
+          this.contactFg.reset();
+        },
+        error: (err) => {
+          this.openSnackBar('Unable to send information!', 'Close');
+        },
+        complete: () => {
+          console.log('Save contact details request completed.');
         },
       });
   }

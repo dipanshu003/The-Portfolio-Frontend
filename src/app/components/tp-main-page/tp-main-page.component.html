@@ -32,12 +32,12 @@
     <!-- Main content -->
     <div class="flex flex-col text-center justify-center items-center px-4">
       <h1 class="text-5xl sm:text-6xl font-extrabold mb-6">
-        Hi, I’m <span class="text-indigo-400">Dipanshu Dhole</span>
+        Hi, I’m <span class="text-indigo-400">{{ infoData()?.name }}</span>
       </h1>
       <p class="text-lg sm:text-xl text-gray-300 max-w-xl mx-auto mb-8">
         A passionate
-        <span class="text-indigo-400">Java Full Stack Developer</span> who loves
-        crafting clean and scalable solutions.
+        <span class="text-indigo-400">{{ infoData()?.designation }}</span> who
+        loves crafting clean and scalable solutions.
       </p>
       <button
         (click)="scrollToSection('about')"
@@ -58,7 +58,7 @@
       <!-- Profile Image -->
       <div class="flex justify-center">
         <img
-          src="assets/dip_photo.png"
+          src="assets/dip_portfolio_profile.jpg"
           alt="Dipanshu Dhole"
           class="w-80 h-80 sm:w-[500px] sm:h-[500px] rounded-2xl shadow-xl object-contains border-4 border-indigo-500 hover:scale-105 transition-transform duration-300"
         />
@@ -75,26 +75,7 @@
         <p
           class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6"
         >
-          Hi, I’m
-          <span class="font-semibold text-indigo-500">Dipanshu Dhole</span>, a
-          passionate
-          <span class="text-indigo-400">Full Stack Developer</span> with a
-          strong interest in building scalable and clean web applications. I
-          enjoy transforming ideas into user-friendly digital experiences.
-          Experienced in Angular 16+, RxJS, and Tailwind CSS. Proficient in
-          integrating Google APIs, including Maps and Business Reviews. Skilled
-          in state management with NgRx and collaborative development using Git
-          and Azure DevOps, focusing on delivering clean, scalable, and
-          user-friendly web applications.
-        </p>
-
-        <p
-          class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8"
-        >
-          With expertise in
-          <span class="font-medium">Angular, Java, and modern web tools</span>,
-          I focus on writing elegant code and delivering high-quality solutions
-          that make an impact.
+          {{ infoData()?.profileSummary }}
         </p>
 
         <!-- Buttons -->
@@ -107,7 +88,7 @@
           </button>
           <button
             (click)="downloadResume()"
-            class="px-6 py-3 rounded-lg bg-indigo-600 text-white font-medium shadow-lg hover:bg-indigo-700 hover:scale-105 transition-all duration-300 cursor-pointer"
+            class="px-6 py-3 rounded-lg border-2 border-indigo-600 text-white font-medium hover:bg-indigo-600 hover:text-white transition-all duration-300 cursor-pointer"
           >
             Download Resume
           </button>
@@ -118,30 +99,12 @@
           My expertise includes:
         </p>
         <div class="flex flex-wrap gap-2 mt-2">
+          @for (skill of infoData()?.skills; track skill.id) {
           <span
             class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
-            >Angular</span
+            >{{ skill.skill }}</span
           >
-          <span
-            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
-            >RxJS</span
-          >
-          <span
-            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
-            >Tailwind CSS</span
-          >
-          <span
-            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
-            >Java</span
-          >
-          <span
-            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
-            >NgRx</span
-          >
-          <span
-            class="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 text-sm font-medium"
-            >Google APIs</span
-          >
+          }
         </div>
       </div>
     </div>
@@ -159,24 +122,24 @@
     <div class="relative w-full max-w-6xl">
       <!-- Projects Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @for (project of visibleProjects; track $index) {
+        @for (project of infoData()?.projects; track i;let i = $index) {
         <!-- Actual Project Card -->
         <div
           class="overflow-hidden rounded-2xl shadow-lg bg-white dark:bg-gray-800 transition-transform duration-500 hover:scale-105"
         >
           <img
-            [src]="project.image"
-            [alt]="project.title"
+            [src]="projectPhoto[i]"
+            [alt]="project.projectName"
             class="w-full h-64 object-cover"
           />
           <div class="p-4">
             <h3
               class="text-xl font-semibold text-gray-800 dark:text-white mb-2"
             >
-              {{ project.title }}
+              {{ project.projectName }}
             </h3>
             <p class="text-gray-600 dark:text-gray-300 text-sm">
-              {{ project.description }}
+              {{ project.projectDesc }}
             </p>
           </div>
         </div>
@@ -184,7 +147,7 @@
       </div>
 
       <!-- Previous Button -->
-      @if (currentIndex !== 0) {
+      @if ( infoData()?.showNextPreviousButton) { @if (currentIndex !== 0) {
       <button
         (click)="prevProject()"
         class="h-16 w-16 absolute top-1/2 -left-8 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full hover:bg-indigo-700 transition cursor-pointer"
@@ -194,14 +157,92 @@
       }
 
       <!-- Next Button -->
-      @if (currentIndex + projectsPerPage < projects.length) {
+      @if (currentIndex + projectsPerPage < (infoData()?.projects?.length || 0))
+      {
       <button
         (click)="nextProject()"
         class="h-16 w-16 absolute top-1/2 -right-8 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full hover:bg-indigo-700 transition cursor-pointer"
       >
         <i class="fa-solid fa-chevron-right"></i>
       </button>
-      }
+      } }
+    </div>
+  </section>
+
+  <!-- Work Experience Section -->
+  <section
+    id="work-experience"
+    class="relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-6 sm:px-12 py-16"
+  >
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl text-center font-bold text-indigo-600 dark:text-indigo-400 mb-12">
+        Work Experience
+      </h2>
+
+      <div class="space-y-8">
+        <!-- Rectitude Consulting Services -->
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md">
+          <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
+            Software Developer – Rectitude Consulting Services
+          </h3>
+          <p class="text-gray-500 dark:text-gray-400">
+            Angular Developer • 2023 – Present
+          </p>
+          <ul
+            class="list-disc list-inside mt-3 text-gray-700 dark:text-gray-300 space-y-2"
+          >
+            <li>
+              Worked as an Angular Developer building UI modules like Project
+              Management, Timesheet, Attendance, Payment Gateway, and Business
+              Intelligence dashboards.
+            </li>
+            <li>
+              Delivered seamless API integrations and efficient data binding
+              using RxJS and NgRx for dynamic, responsive UIs.
+            </li>
+            <li>
+              Proficient in Azure DevOps (ADO): created pull requests, managed
+              backmerges, resolved conflicts, and configured CI/CD pipelines for
+              automated deployments.
+            </li>
+            <li>
+              Integrated Google APIs (Business API, Places API, Maps JS API,
+              Geocoding API) to fetch reviews and display interactive maps.
+            </li>
+            <li>
+              Leveraged tools like Redux DevTools, Flowbite, Tailwind CSS,
+              FontAwesome, Gemini, ChatGPT, and Claude to enhance UI performance
+              and workflow efficiency.
+            </li>
+          </ul>
+        </div>
+
+        <!-- The Kiran Academy -->
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md">
+          <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
+            Java Full Stack Developer Intern – The Kiran Academy
+          </h3>
+          <p class="text-gray-500 dark:text-gray-400">
+            Internship • 2021 – 2022
+          </p>
+          <ul
+            class="list-disc list-inside mt-3 text-gray-700 dark:text-gray-300 space-y-2"
+          >
+            <li>
+              Worked with Microservices architecture using Spring, Spring Boot,
+              and Angular.
+            </li>
+            <li>
+              Designed and implemented RESTful APIs for secure communication
+              between client and server systems.
+            </li>
+            <li>
+              Built high-performance applications aligned with modern software
+              development standards and client requirements.
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -231,7 +272,7 @@
           <div>
             <h4 class="font-semibold text-gray-800 dark:text-white">Email</h4>
             <p class="text-gray-600 dark:text-gray-300">
-              dipanshudholexample.com
+              {{ infoData()?.email }}
             </p>
           </div>
         </div>
@@ -241,7 +282,9 @@
           <i class="fa-solid fa-phone text-indigo-600 text-2xl"></i>
           <div>
             <h4 class="font-semibold text-gray-800 dark:text-white">Phone</h4>
-            <p class="text-gray-600 dark:text-gray-300">+91 98765 43210</p>
+            <p class="text-gray-600 dark:text-gray-300">
+              {{ infoData()?.phoneNumber }}
+            </p>
           </div>
         </div>
         <div
@@ -253,7 +296,7 @@
               Location
             </h4>
             <p class="text-gray-600 dark:text-gray-300">
-              Pune, Maharashtra, India
+              {{ infoData()?.address }}
             </p>
           </div>
         </div>
@@ -303,9 +346,9 @@
         </div>
 
         <button
-          type="submit"
           [disabled]="contactFg.invalid"
-          class="w-full md:w-auto px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-300 self-center disabled:opacity-50 disabled:cursor-not-allowed"
+          (click)="onSubmit()"
+          class="w-full md:w-auto px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 hover:scale-105 transition-transform duration-300 self-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Send Message
         </button>
@@ -322,18 +365,34 @@
     >
       <!-- Logo / Name -->
       <div class="text-center md:text-left">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-2">Dipanshu Dhole</h3>
+        <h3 class="text-2xl font-bold text-indigo-400 mb-2">
+          {{ infoData()?.name }}
+        </h3>
         <p class="text-sm">Full Stack Developer | Angular & Java Enthusiast</p>
       </div>
 
       <!-- Quick Links -->
       <div class="flex flex-col md:flex-row gap-6 text-center md:text-left">
-        <a href="#home" class="hover:text-indigo-400 transition">Home</a>
-        <a href="#about" class="hover:text-indigo-400 transition">About</a>
-        <a href="#projects" class="hover:text-indigo-400 transition"
+        <a
+          (click)="scrollToSection('home')"
+          class="hover:text-indigo-400 transition cursor-pointer"
+          >Home</a
+        >
+        <a
+          (click)="scrollToSection('about')"
+          class="hover:text-indigo-400 transition cursor-pointer"
+          >About</a
+        >
+        <a
+          (click)="scrollToSection('projects')"
+          class="hover:text-indigo-400 transition cursor-pointer"
           >Projects</a
         >
-        <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
+        <a
+          (click)="scrollToSection('contact')"
+          class="hover:text-indigo-400 transition cursor-pointer"
+          >Contact</a
+        >
       </div>
 
       <!-- Social Icons -->
@@ -364,7 +423,7 @@
 
     <!-- Divider -->
     <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
-      Dipanshu Dhole. All rights reserved.
+      {{ infoData()?.name }}. All rights reserved 2025.
     </div>
   </footer>
 </main>
