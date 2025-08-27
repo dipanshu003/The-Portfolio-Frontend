@@ -10,6 +10,7 @@ import {
   SaveContactMeDetailsQuery,
 } from '../../models/info-data.model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { portfolioConstantObj } from '../../helper/app.constant';
 
 @Component({
   selector: 'app-tp-main-page',
@@ -52,7 +53,16 @@ export class TpMainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchAllInfoDetails();
+    // this.fetchAllInfoDetails();
+
+    const modifiedInfoData = {
+      ...portfolioConstantObj,
+      showNextPreviousButton: (portfolioConstantObj.projects?.length ?? 0) > 3,
+    };
+
+    this.infoData.set(modifiedInfoData);
+    console.log(this.infoData(),"info data");
+    
   }
 
   nextProject() {
@@ -111,7 +121,6 @@ export class TpMainPageComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.infoData.set(res);
-          console.log('Fetched info details:', this.infoData());
         },
         error: (err) => {
           console.error('Error fetching info details:', err);
@@ -124,7 +133,11 @@ export class TpMainPageComponent implements OnInit {
       });
   }
 
+  isLoading = signal<boolean>(false);
+
   saveContactMeDetails() {
+    this.isLoading.set(true);
+
     const payload: SaveContactMeDetailsQuery = {
       id: '',
       name: this.contactFgControls.name.value ?? '',
@@ -143,13 +156,13 @@ export class TpMainPageComponent implements OnInit {
             console.warn('Failed to save contact details');
             this.openSnackBar('Failed to send information!', 'Close');
           }
-          this.contactFg.reset();
         },
         error: (err) => {
           this.openSnackBar('Unable to send information!', 'Close');
         },
         complete: () => {
-          console.log('Save contact details request completed.');
+          this.isLoading.set(false);
+          this.contactFg.reset();
         },
       });
   }

@@ -175,7 +175,9 @@
     class="relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-6 sm:px-12 py-16"
   >
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl text-center font-bold text-indigo-600 dark:text-indigo-400 mb-12">
+      <h2
+        class="text-4xl text-center font-bold text-indigo-600 dark:text-indigo-400 mb-12"
+      >
         Work Experience
       </h2>
 
@@ -222,9 +224,7 @@
           <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
             Java Full Stack Developer Intern – The Kiran Academy
           </h3>
-          <p class="text-gray-500 dark:text-gray-400">
-            Internship • 2021 – 2022
-          </p>
+          <p class="text-gray-500 dark:text-gray-400">Internship • 2023</p>
           <ul
             class="list-disc list-inside mt-3 text-gray-700 dark:text-gray-300 space-y-2"
           >
@@ -304,8 +304,10 @@
 
       <form
         [formGroup]="contactFg"
-        class="md:w-2/3 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg flex flex-col gap-6"
+        class="relative md:w-2/3 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg flex flex-col gap-6 min-h-[300px] max-h-[400px]"
       >
+        @if (!isLoading()) {
+        <!-- Form Fields -->
         <div class="flex flex-col md:flex-row gap-4">
           <input
             type="text"
@@ -333,13 +335,13 @@
           @if (contactFgControls.name.touched &&
           contactFgControls.name.hasError('required')) {
           <p>Name is required</p>
-          } @if( contactFgControls.email.touched &&
+          } @if (contactFgControls.email.touched &&
           contactFgControls.email.hasError('required')) {
           <p>Email is required</p>
-          } @if( contactFgControls.email.touched &&
+          } @if (contactFgControls.email.touched &&
           contactFgControls.email.hasError('email')) {
           <p>Enter a valid email</p>
-          } @if( contactFgControls.message.touched &&
+          } @if (contactFgControls.message.touched &&
           contactFgControls.message.hasError('required')) {
           <p>Message is required</p>
           }
@@ -352,6 +354,14 @@
         >
           Send Message
         </button>
+        } @else {
+        <!-- ✅ Loader overlay -->
+        <div
+          class="absolute inset-0 flex items-center justify-center bg-gray-800 rounded-2xl"
+        >
+          <i class="text-white text-3xl fa-solid fa-spinner fa-spin-pulse"></i>
+        </div>
+        }
       </form>
     </div>
   </section>
@@ -398,32 +408,25 @@
       <!-- Social Icons -->
       <div class="flex gap-4 text-2xl">
         <a
-          href="https://www.linkedin.com/in/dipanshudhole"
+          href="https://www.linkedin.com/in/dipanshudhole03/"
           target="_blank"
           class="hover:text-indigo-400 transition"
         >
           <i class="fa-brands fa-linkedin"></i>
         </a>
         <a
-          href="https://github.com/dipanshudhole"
+          href="https://github.com/dipanshu003"
           target="_blank"
           class="hover:text-indigo-400 transition"
         >
           <i class="fa-brands fa-github"></i>
-        </a>
-        <a
-          href="https://twitter.com/dipanshudhole"
-          target="_blank"
-          class="hover:text-indigo-400 transition"
-        >
-          <i class="fa-brands fa-twitter"></i>
         </a>
       </div>
     </div>
 
     <!-- Divider -->
     <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
-      {{ infoData()?.name }}. All rights reserved 2025.
+      Made by ❤️  All rights reserved 2025.
     </div>
   </footer>
 </main>
